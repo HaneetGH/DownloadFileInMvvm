@@ -38,21 +38,14 @@ class MainActivityTest {
     }
 
     @Test
-    fun B_generateOTP() {
+    fun B_start() {
         Espresso.onView(ViewMatchers.withId(R.id.url))
             .perform(ViewActions.typeText("https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef1710en.pdf"));
         Espresso.onView(ViewMatchers.withId(R.id.btn))
             .perform(ClickOnButtonView(R.id.btn))
     }
 
-    @Test
-    fun C_verifyOTP() {
-        runBlocking { delay(2000) }
-        Espresso.onView(ViewMatchers.withId(R.id.txt))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-
-    }
 
 
     inner class ClickOnButtonView(continueBtn: Int) : ViewAction {
@@ -68,7 +61,7 @@ class MainActivityTest {
 
         override fun perform(uiController: UiController, view: View) {
             //btnClickMe -> Custom row item view button
-            click.perform(uiController, view.findViewById(R.id.continueBtn))
+            click.perform(uiController, view.findViewById(R.id.btn))
         }
     }
 
