@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.haneet.assignment.base.BaseViewModel
 import com.haneet.assignment.data.repository.MainActivityRepository
@@ -33,7 +34,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     private val repository: MainActivityRepository
-) : BaseViewModel() {
+) : ViewModel() {
 
     var boundService: DownloadService? = null
     var isBound = false

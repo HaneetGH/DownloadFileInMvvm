@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="counter"
+            type="Double" />
+
+        <variable
+            name="handler"
+            type="com.haneet.assignment.ui.onboarding.LoginActivity.ClickEvents" />
+
+        <variable
+            name="isForOTP"
+            type="boolean" />
+
+        <variable
+            name="progressCircular"
+            type="boolean" />
+
+        <variable
+            name="errorMessage"
+            type="String" />
+
+        <variable
+            name="showErrorMessage"
+            type="boolean" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_80sdp"
+
+            android:orientation="vertical"
+
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/otpTitle"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{safeUnbox(isForOTP)?code.text.toString() +` `+number.text.toString():`Get OTP`,default=`Get OTP`}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_18sdp" />
+
+                <ImageView
+                    android:id="@+id/pencil"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:onClick="@{()->handler.editAgain()}"
+                    android:src="@drawable/fluent_edit_24_filled"
+                    android:visibility="@{safeUnbox(isForOTP)?View.VISIBLE:View.GONE}" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView7"
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@{safeUnbox(isForOTP)?`Enter The\nOTP`:`Enter Your\nPhone Number`,default=`Enter Your\nPhone Number`}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_30sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/inputs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_below="@+id/title"
+            android:layout_marginStart="@dimen/_30sdp"
+
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/otpEdit"
+
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/back_rec_smaller"
+                android:gravity="center"
+                android:hint="0000"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold"
+                android:visibility="@{safeUnbox(isForOTP)?View.VISIBLE:View.GONE,default=gone}" />
+
+            <TextView
+                android:id="@+id/code"
+
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/back_rec_smaller"
+                android:gravity="center"
+                android:text="+91"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold"
+
+                android:visibility="@{safeUnbox(!isForOTP)?View.VISIBLE:View.GONE}" />
+
+
+            <EditText
+                android:id="@+id/number"
+
+                android:layout_width="@dimen/_147sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@drawable/background_edittext_rectangle"
+                android:inputType="number"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold"
+
+                android:visibility="@{safeUnbox(!isForOTP)?View.VISIBLE:View.GONE}" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/inputs"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@{errorMessage}"
+            android:textColor="@color/Yellow"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="@{safeUnbox(showErrorMessage)?View.VISIBLE:View.GONE}" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/error"
+
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/error"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:backgroundTint="@color/black"
+                android:indeterminateTint="@color/black"
+                android:visibility="@{safeUnbox(!progressCircular)?View.GONE:View.VISIBLE,default=gone}" />
+
+            <Button
+                android:id="@+id/continueBtn"
+
+                android:layout_width="@dimen/_96sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/btn_yellow_ractabgle"
+                android:onClick="@{()->handler.clickContinue(code.getText().toString,number.getText().toString(),otpEdit.getText().toString() )}"
+                android:text="Continue"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                android:visibility="@{safeUnbox(progressCircular)?View.GONE:View.VISIBLE}" />
+
+            <TextView
+                android:id="@+id/txtCounter"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/error"
+                android:layout_alignEnd="@+id/continueBtn"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@{counter+``}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                 />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>
