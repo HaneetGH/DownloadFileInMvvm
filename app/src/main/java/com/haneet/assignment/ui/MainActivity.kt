@@ -38,7 +38,7 @@ class MainActivity : BaseClass() {
         binding.btn.setOnClickListener(View.OnClickListener {
             viewModel.setStateEvent(
                 MainStateEvent.DownloadIt(
-                    "https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef1710en.pdf",
+                    binding.url.text.toString(),
                     this
                 )
             )
@@ -138,7 +138,7 @@ class MainActivity : BaseClass() {
                         folder.mkdirs()
                     }
                     var url =
-                        "https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef1710en.pdf";
+                        binding.url.text.toString();
                     val extension: String = url.substring(url.lastIndexOf("."))
                     val fileName =
                         SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(Date()) + extension

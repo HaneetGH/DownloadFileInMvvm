@@ -1,17 +1,17 @@
 package com.haneet.assignment.ui
 
 import android.view.View
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import com.haneet.assignment.R
 import com.haneet.assignment.ui.onboarding.LoginActivity
-import junit.framework.TestCase
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matcher
@@ -21,38 +21,39 @@ import org.junit.Test
 import org.junit.runners.MethodSorters
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class MainActivityTest {
+class LoginActivityTest {
 
-    @InternalCoroutinesApi
+
     @Rule
     @JvmField
-    var activityRule = ActivityTestRule(MainActivity::class.java)
+    var activityRule = ActivityTestRule(LoginActivity::class.java)
 
     @Test
     fun A_isViewsVisible() {
-        Espresso.onView(ViewMatchers.withId(R.id.url))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.btn))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
+        onView(withId(R.id.code)).check(matches(isDisplayed()))
+        onView(withId(R.id.number)).check(matches(isDisplayed()))
+        onView(withId(R.id.continueBtn)).check(matches(isDisplayed()))
     }
 
     @Test
     fun B_generateOTP() {
-        Espresso.onView(ViewMatchers.withId(R.id.url))
-            .perform(ViewActions.typeText("https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef1710en.pdf"));
-        Espresso.onView(ViewMatchers.withId(R.id.btn))
-            .perform(ClickOnButtonView(R.id.btn))
+        onView(withId(R.id.number)).perform(typeText("9041422652"));
+        onView(withId(R.id.continueBtn))
+            .perform(ClickOnButtonView(R.id.continueBtn))
     }
 
     @Test
     fun C_verifyOTP() {
         runBlocking { delay(2000) }
-        Espresso.onView(ViewMatchers.withId(R.id.txt))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.number)).perform(typeText("1234"));
+        onView(withId(R.id.continueBtn))
+            .perform(ClickOnButtonView(R.id.continueBtn))
 
 
     }
+
+
+
 
 
     inner class ClickOnButtonView(continueBtn: Int) : ViewAction {
@@ -71,5 +72,4 @@ class MainActivityTest {
             click.perform(uiController, view.findViewById(R.id.continueBtn))
         }
     }
-
 }
