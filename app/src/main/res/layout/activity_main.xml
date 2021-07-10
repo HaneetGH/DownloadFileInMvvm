@@ -25,6 +25,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@color/white"
             android:hint="Enter Url"
+            android:text="https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef1710en.pdf"
             android:paddingLeft="10dp"
             android:textColor="@color/black" />
 
